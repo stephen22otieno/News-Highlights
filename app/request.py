@@ -9,13 +9,13 @@ api_key = None
 base_article_url = None
 base_source_url = None
 
-def configure_request(app): #Create a function configure_request
+def configure_request(app): 
     global base_article_url,base_source_url
     api_key = app.config['NEWS_API_KEY']
     base_article_url = app.config['NEWS_ARTICLE_API_BASE_URL']
     base_source_url = app.config['NEWS_SOURCE_API_BASE_URL']
 
-def get_article(): #Function that takes in article id as an argument
+def get_article(): 
         '''
         Function that gets the json response to our url request
         '''
@@ -40,7 +40,7 @@ def process_articles(article_list): #Function that takes in a list of dictionari
         Returns :
         article_results: A list of movie objects
         '''
-        article_results = [] #Empty list to store newly created article objects
+        article_results = [] 
         for article_item in article_list:
            
             id = article_item["source"].get("id")  
@@ -51,32 +51,31 @@ def process_articles(article_list): #Function that takes in a list of dictionari
             url = article_item.get('url')
             urlToImage = article_item.get('urlToImage')
             publishedAt = article_item.get('publishedAt')
-           #Looping through list of dictionaries using get()method and passing in the keys so that we can access the values
            
-            article_object = Article(id,name,author,title,description,url,urlToImage,publishedAt) #Creating article object
-            article_results.append(article_object) #Appending our empty list
+           
+            article_object = Article(id,name,author,title,description,url,urlToImage,publishedAt) 
+            article_results.append(article_object) 
 
-        return article_results #Return list with article objects
+        return article_results 
 
 
 
-def get_source(): #Function that takes in source category as an argument
+def get_source(): 
         '''
         Function that gets the json response to our url request 
         '''
-        get_source_url =  base_source_url.format(api_key) #Passing in source category and api key on the base url using the .format method
-
-        with urllib.request.urlopen('https://newsapi.org/v2/sources?apiKey=f80d5dfbac424cbb9ebffcc23c378ffd') as url: #with sends request using urllib.request.urlopen function that takes in get_source_url as an argument and sends a request as url
-            get_source_data = url.read() #read function reads the response and stores it in get_source_data variable
-            get_source_response = json.loads(get_source_data.decode('utf-8')) #Json response converted to python dictionary passing in get_source_data variable
+        get_source_url =  base_source_url.format(api_key) 
+        with urllib.request.urlopen('https://newsapi.org/v2/sources?apiKey=f80d5dfbac424cbb9ebffcc23c378ffd') as url: 
+            get_source_data = url.read() 
+            get_source_response = json.loads(get_source_data.decode('utf-8')) 
         
             source_results_list = get_source_response['sources']
            
-            source_results = process_sources(source_results_list) #calling process_sources function and returning list of source objects
+            source_results = process_sources(source_results_list) 
 
-        return source_results #return list of source_objects
+        return source_results 
 
-def process_sources(source_list): #Function that takes in a list of dictionaries
+def process_sources(source_list):
         '''
         Function  that processes the source result and transform them to a list of Objects
         Args:
@@ -87,7 +86,7 @@ def process_sources(source_list): #Function that takes in a list of dictionaries
 
 
 
-        source_results = [] #Empty list to store newly created source objects
+        source_results = [] 
         for source_item in source_list:
             id = source_item.get('id')
             name = source_item.get('name')
@@ -101,6 +100,6 @@ def process_sources(source_list): #Function that takes in a list of dictionaries
             source = Source(id,name,description,url,category,language,country)
             source_results.append(source)
 
-            #Looping through list of dictionaries using get()method and passing in the keys so that we can access the values
+            
 
         return source_results
