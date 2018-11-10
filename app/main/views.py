@@ -1,7 +1,7 @@
 #Files imports
 from flask import render_template,request,redirect,url_for
 from . import main
-from ..requests import get_source,get_article
+from ..request import get_source,get_article
 from ..models import Source
 
 
