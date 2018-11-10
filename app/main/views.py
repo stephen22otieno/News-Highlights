@@ -1,31 +1,31 @@
-from flask import render_template
-from app import app
+#Files imports
+from flask import render_template,request,redirect,url_for
+from . import main
+from ..requests import get_source,get_article
+from ..models import Source
 
-# Views
-@app.route('/')
+
+#Views
+@main.route("/")
 def index():
+    return render_template("index.html")
 
+@main.route('/articles') 
+def articles(): 
     '''
-    View root page function that returns the index page and its data
-    '''
-    message = 'News center'
-    return render_template('index.html',message = message)
-
-
-@app.route('/news/<news_id>')
-def news(news_id):
-
-    '''
-    View news page function that returns the news details page and its data
-    '''
-    return render_template('news.html',id = news_id)
-
-
-def index():
-
-    '''
-    View root page function that returns the index page and its data
+    View article page function that returns the articles details page and its data
     '''
 
-    title = 'Home - Welcome to The best News Review Website Online'
-    return render_template('index.html', title = title)
+    articles = get_article()
+    return render_template('article.html', articles = articles) 
+
+    
+
+@main.route('/sources')
+def source():
+    '''
+    '''
+    sources = get_source()
+    print(sources)
+   
+    return render_template('source.html', sources = sources)
