@@ -1,5 +1,6 @@
 import urllib.request
-import json 
+import json
+
 from .models import Article,Source
 
 
@@ -19,20 +20,23 @@ def get_article():
         '''
         Function that gets the json response to our url request
         '''
-        get_article_url = base_article_url.format(api_key)
+        # get_article_url = base_article_url.format(api_key)
 
         with urllib.request.urlopen("https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=f80d5dfbac424cbb9ebffcc23c378ffd") as url:
-            get_article_data = url.read()
-            get_article_response = json.loads(get_article_data.decode('utf-8'))
+            get_article = url.read()
+            get_article_response = json.loads(get_article.decode())
 
             article_results = None
+            if get_article_response['articles']:
+                news_list = get_article_response['articles']
+                article_results = process_articles(news_list)
             
-            article_results_list = get_article_response['articles']
-            article_results = process_articles(article_results_list)
+            # article_results_list = get_article_response['articles']
+            # article_results = process_articles(article_results_list)
 
         return article_results 
 
-def process_articles(article_list): #Function that takes in a list of dictionaries
+def process_articles(article_list):
         '''
         Function  that processes the article result and transform them to a list of Objects
         Args:
