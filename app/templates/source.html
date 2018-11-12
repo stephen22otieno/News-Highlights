@@ -1,22 +1,16 @@
+{% extends 'base.html'%}
 {% import 'macros.html' as macro %}
-
-{% block content %}
-
-<div class="container-fluid">
-    <h1 class="text-center">
-        <center> NEWS SOURCES </center>
-    </h1>
-    <hr>
-
-    {% for source in sources %}>
-    <h2><strong>{{ source.id }}</strong></h2>
-    <p>{{ source.description }}</p>
-    <h4>{{ source.category }}</h4>
-    <h4><em>{{ source.country }}</em></h4>
-    <hr>
-</div>
-{% endfor %}
-
-
+    {% block content %}
+    <!-- <div class="jumbotron" style="background-color: tomato"> -->
+        
+        <div class="container">
+            <h3>TOP HEADLINES</h3>
+            <div class="row">
+                <ul>
+                    {{macro.displaySources(sources)}} <br>  
+                </ul>
+                <br> <hr>
+            </div>
+        </div>
 
 {% endblock %}

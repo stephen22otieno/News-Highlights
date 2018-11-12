@@ -8,7 +8,10 @@ from ..models import Source
 #Views
 @main.route("/")
 def index():
-    return render_template("index.html")
+    title ='Global News'
+    sources = get_source()
+    return render_template("index.html",title=title,sources=sources)
+    
 
 @main.route('/articles') 
 def articles(): 
@@ -23,8 +26,7 @@ def articles():
 
 @main.route('/sources')
 def source():
-    '''
-    '''
+    
     sources = get_source()
     print(sources)
    

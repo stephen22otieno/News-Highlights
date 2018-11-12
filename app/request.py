@@ -56,9 +56,9 @@ def process_articles(article_list):
             urlToImage = article_item.get('urlToImage')
             publishedAt = article_item.get('publishedAt')
            
-           
-            article_object = Article(id,name,author,title,description,url,urlToImage,publishedAt) 
-            article_results.append(article_object) 
+            if urlToImage:
+                article_object = Article(id,name,author,title,description,url,urlToImage,publishedAt) 
+                article_results.append(article_object) 
 
         return article_results 
 
@@ -68,10 +68,10 @@ def get_source():
         '''
         Function that gets the json response to our url request 
         '''
-        get_source_url =  base_source_url.format(api_key) 
-        with urllib.request.urlopen('https://newsapi.org/v2/sources?apiKey=f80d5dfbac424cbb9ebffcc23c378ffd') as url: 
+        # get_source_url =  base_source_url.format(api_key) 
+        with urllib.request.urlopen('https://newsapi.org/v2/sources?&apiKey=f80d5dfbac424cbb9ebffcc23c378ffd') as url: 
             get_source_data = url.read() 
-            get_source_response = json.loads(get_source_data.decode('utf-8')) 
+            get_source_response = json.loads(get_source_data.decode()) 
         
             source_results_list = get_source_response['sources']
            
@@ -99,7 +99,6 @@ def process_sources(source_list):
             category = source_item.get('category')
             language = source_item.get('language')
             country = source_item.get('country')
-            print(name)
 
             source = Source(id,name,description,url,category,language,country)
             source_results.append(source)

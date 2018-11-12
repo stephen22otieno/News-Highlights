@@ -1,33 +1,12 @@
-<!DOCTYPE html>
-<html>
 {% extends 'base.html'%}
 {% import 'macros.html' as macro%}
 
-<!--Styles block-->
 {% block styles%}
 {{super()}}
 <link rel="stylesheet" href="{{url_for('static',filename='css/index.css')}}">
 {% endblock %}
-<!-- Content block -->
-
-
-<head>
-    <meta charset="utf-8">
-    {% if title %}
-    <title> {{ title }}</title>
-    {% else %}
-    <title> WELCOME TO NEWS HIGHLIGHT CENTRE </title>
-    {% endif %}
-</head>
-
-<body>
-
-    <!-- Content block -->
-    {% block content %}
-    <!-- source,article -->
-
-
-    {% endblock%}
-</body>
-
-</html>
+{%block content%}
+    <ul>
+        {{macro.displaySources(sources)}}
+    </ul>
+{%endblock%}

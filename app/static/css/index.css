@@ -1,9 +1,13 @@
 body{
-    background-color: rgb(93, 95, 88);
-    font-size:40px;
+    font-size:large;
 
 }
-nav{
+/* nav{
     text-align: center;
-    text-decoration-style: italic;
+    font-style: italic;
+} */
+
+.container{
+    background-color:aliceblue;
+    border:3px black;
 }
